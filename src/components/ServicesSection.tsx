@@ -1,36 +1,46 @@
-const services = [
+import AnimateOnScroll from "./AnimateOnScroll";
+import { Home, Hammer, ChefHat, Bath, Wrench, Zap, Paintbrush } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+interface ServiceItem {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
+const services: ServiceItem[] = [
   {
-    number: "01",
+    icon: Home,
     title: "New Builds",
-    description: "Ground-up residential and commercial construction. Foundations to final finishes.",
+    description: "Ground-up residential and commercial construction, from foundations to final finishes.",
   },
   {
-    number: "02",
+    icon: Hammer,
     title: "Refurbishment",
     description: "Structural alterations, extensions, and complete property renovations.",
   },
   {
-    number: "03",
+    icon: ChefHat,
     title: "Kitchens",
-    description: "Full installations — cabinetry, worktops, tiling, plumbing and electrical.",
+    description: "Full installations including cabinetry, worktops, tiling, plumbing and electrical.",
   },
   {
-    number: "04",
+    icon: Bath,
     title: "Bathrooms",
-    description: "Wet rooms, suites, waterproofing, underfloor heating. Every detail considered.",
+    description: "Wet rooms, suites, waterproofing, underfloor heating — every detail considered.",
   },
   {
-    number: "05",
+    icon: Wrench,
     title: "Plumbing",
-    description: "Central heating, boiler installations, pipe work. Certified to current regulations.",
+    description: "Central heating, boiler installations, and pipework. Certified to current regulations.",
   },
   {
-    number: "06",
+    icon: Zap,
     title: "Electrical",
-    description: "Consumer units, rewiring, lighting design, smart home integration.",
+    description: "Consumer units, rewiring, lighting design, and smart home integration.",
   },
   {
-    number: "07",
+    icon: Paintbrush,
     title: "General Building",
     description: "Brickwork, plastering, roofing, flooring, painting and decorating.",
   },
@@ -38,46 +48,40 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-24 md:py-32 px-6 lg:px-10">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 mb-16 md:mb-24">
-          <div className="md:col-span-4">
-            <p className="text-xs uppercase tracking-[0.3em] text-primary mb-4">
-              What we do
-            </p>
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground">
-              Every trade,
-              <br />
-              <span className="italic text-gradient">one team.</span>
-            </h2>
-          </div>
-          <div className="md:col-span-6 md:col-start-7 flex items-end">
-            <p className="text-muted-foreground text-base leading-relaxed">
-              We bring together skilled tradespeople under one managed team.
-              No subcontracting surprises. No hidden costs. Just quality work,
-              delivered on schedule.
-            </p>
-          </div>
-        </div>
+    <section id="services" className="py-16 md:py-24 px-5 bg-secondary">
+      <div className="max-w-6xl mx-auto">
+        <AnimateOnScroll className="text-center mb-14">
+          <span className="inline-block text-xs font-medium text-accent bg-accent/10 px-3 py-1.5 rounded-full mb-4">
+            Our services
+          </span>
+          <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-3">
+            Everything your project needs
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            All trades under one roof. One team, one point of contact, one standard of quality.
+          </p>
+        </AnimateOnScroll>
 
-        <div className="space-y-0">
-          {services.map((service) => (
-            <div
-              key={service.number}
-              className="group border-t border-border py-7 md:py-8 grid grid-cols-12 gap-4 items-baseline hover:border-primary/30 transition-colors cursor-default"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {services.map((service, i) => (
+            <AnimateOnScroll
+              key={service.title}
+              animation="animate-slide-up"
+              delay={i * 80}
             >
-              <span className="col-span-2 md:col-span-1 text-xs text-muted-foreground">
-                {service.number}
-              </span>
-              <h3 className="col-span-10 md:col-span-4 font-heading text-xl md:text-2xl text-foreground group-hover:text-primary transition-colors duration-300">
-                {service.title}
-              </h3>
-              <p className="col-span-12 md:col-span-6 md:col-start-7 text-sm text-muted-foreground">
-                {service.description}
-              </p>
-            </div>
+              <div className="bg-background rounded-xl p-6 h-full hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                <div className="w-10 h-10 rounded-lg bg-primary/8 flex items-center justify-center mb-4">
+                  <service.icon size={20} className="text-primary" />
+                </div>
+                <h3 className="font-heading text-lg text-foreground mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+            </AnimateOnScroll>
           ))}
-          <div className="border-t border-border" />
         </div>
       </div>
     </section>
