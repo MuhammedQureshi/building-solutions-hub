@@ -1,4 +1,6 @@
 import { useState } from "react";
+import AnimateOnScroll from "./AnimateOnScroll";
+import { Send, Phone, Mail, MapPin, Clock } from "lucide-react";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -15,86 +17,73 @@ const ContactSection = () => {
   };
 
   const inputClasses =
-    "w-full bg-transparent border-b border-foreground/15 px-0 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-300";
+    "w-full bg-background border border-border px-4 py-3 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200";
+
+  const contactInfo = [
+    { icon: Phone, label: "Phone", value: "020 7946 0958" },
+    { icon: Mail, label: "Email", value: "info@groundworkandgauge.co.uk" },
+    { icon: MapPin, label: "Coverage", value: "London, Surrey, Kent & surrounds" },
+    { icon: Clock, label: "Hours", value: "Mon–Fri 07:00–18:00 · Sat 08:00–13:00" },
+  ];
 
   return (
-    <section id="contact" className="py-24 md:py-32 px-6 lg:px-10 bg-card">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-20">
-          <div className="md:col-span-5">
-            <p className="text-xs uppercase tracking-[0.3em] text-primary mb-4">
-              Get in touch
-            </p>
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-8">
-              Let's build
-              <br />
-              <span className="italic text-gradient">together.</span>
-            </h2>
+    <section id="contact" className="py-16 md:py-24 px-5">
+      <div className="max-w-6xl mx-auto">
+        <AnimateOnScroll className="text-center mb-14">
+          <span className="inline-block text-xs font-medium text-accent bg-accent/10 px-3 py-1.5 rounded-full mb-4">
+            Get in touch
+          </span>
+          <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-3">
+            Let's discuss your project
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            Tell us what you need and we'll get back to you within 24 hours with a no-obligation quote.
+          </p>
+        </AnimateOnScroll>
 
-            <div className="space-y-6 mt-12">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-1">Phone</p>
-                <p className="text-foreground">020 7946 0958</p>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+          <AnimateOnScroll className="lg:col-span-3" animation="animate-fade-in-left">
+            <form
+              onSubmit={handleSubmit}
+              className="bg-secondary rounded-2xl p-6 md:p-8 space-y-5"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1.5">Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className={inputClasses}
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1.5">Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className={inputClasses}
+                    placeholder="you@example.com"
+                  />
+                </div>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-1">Email</p>
-                <p className="text-foreground">info@groundworkandgauge.co.uk</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-1">Coverage</p>
-                <p className="text-foreground">London, Surrey, Kent & surrounding areas</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-1">Hours</p>
-                <p className="text-foreground">
-                  Mon–Fri: 07:00–18:00
-                  <br />
-                  Sat: 08:00–13:00
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="md:col-span-6 md:col-start-7">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className={inputClasses}
-                />
-              </div>
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={inputClasses}
-                />
-              </div>
-              <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                  Phone
-                </label>
+                <label className="block text-sm font-medium text-foreground mb-1.5">Phone</label>
                 <input
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className={inputClasses}
+                  placeholder="Your phone number"
                 />
               </div>
               <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                  Tell us about your project
+                <label className="block text-sm font-medium text-foreground mb-1.5">
+                  Project details
                 </label>
                 <textarea
                   required
@@ -102,16 +91,39 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className={`${inputClasses} resize-none`}
+                  placeholder="Tell us about your project — type of work, location, rough timeline…"
                 />
               </div>
               <button
                 type="submit"
-                className="px-10 py-4 bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] font-medium hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
               >
+                <Send size={15} />
                 Send enquiry
               </button>
             </form>
-          </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll className="lg:col-span-2" animation="animate-fade-in-right">
+            <div className="space-y-5">
+              {contactInfo.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex gap-4 items-start"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0">
+                    <item.icon size={18} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-0.5">
+                      {item.label}
+                    </p>
+                    <p className="text-sm text-foreground">{item.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AnimateOnScroll>
         </div>
       </div>
     </section>

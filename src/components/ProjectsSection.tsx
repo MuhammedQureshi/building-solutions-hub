@@ -2,103 +2,101 @@ import bathroomImg from "@/assets/bathroom-project.jpg";
 import newbuildImg from "@/assets/newbuild-project.jpg";
 import kitchenImg from "@/assets/hero-kitchen.jpg";
 import refurbImg from "@/assets/refurbishment-progress.jpg";
+import AnimateOnScroll from "./AnimateOnScroll";
+import { MapPin, Clock } from "lucide-react";
 
 const projects = [
   {
-    title: "Victorian Terrace",
-    subtitle: "Full Renovation",
-    tags: ["Kitchen", "Bathroom", "Rewire", "Replumb"],
+    title: "Victorian Terrace Renovation",
+    tags: ["Kitchen", "Bathroom", "Rewire"],
     location: "South London",
     duration: "14 weeks",
     image: kitchenImg,
     imageAlt: "Completed kitchen with exposed brick and copper fixtures",
-    large: true,
   },
   {
-    title: "Contemporary Suite",
-    subtitle: "Bathroom",
-    tags: ["Wet Room", "Underfloor Heating", "Concrete Finish"],
+    title: "Contemporary Bathroom",
+    tags: ["Wet Room", "Underfloor Heating"],
     location: "Surrey",
     duration: "5 weeks",
     image: bathroomImg,
-    imageAlt: "Modern bathroom with freestanding tub and concrete walls",
-    large: false,
+    imageAlt: "Modern bathroom with freestanding tub",
   },
   {
-    title: "Timber Frame",
-    subtitle: "New Build",
-    tags: ["Foundations", "Structure", "First Fix"],
+    title: "New Build — Timber Frame",
+    tags: ["Foundations", "Structure"],
     location: "Kent",
     duration: "Ongoing",
     image: newbuildImg,
-    imageAlt: "Timber frame house under construction with scaffolding",
-    large: false,
+    imageAlt: "Timber frame house under construction",
   },
   {
-    title: "Period Property",
-    subtitle: "Strip & Refurb",
-    tags: ["Demolition", "Structural", "Damp Treatment"],
+    title: "Period Property Refurbishment",
+    tags: ["Structural", "Damp Treatment"],
     location: "East London",
     duration: "Ongoing",
     image: refurbImg,
-    imageAlt: "Room during strip-out phase showing exposed walls",
-    large: true,
+    imageAlt: "Room during renovation strip-out phase",
   },
 ];
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="py-24 md:py-32 px-6 lg:px-10 bg-card">
-      <div className="max-w-7xl mx-auto">
-        <p className="text-xs uppercase tracking-[0.3em] text-primary mb-4">
-          Selected work
-        </p>
-        <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-16 md:mb-24">
-          Recent <span className="italic text-gradient">projects.</span>
-        </h2>
+    <section id="projects" className="py-16 md:py-24 px-5">
+      <div className="max-w-6xl mx-auto">
+        <AnimateOnScroll className="text-center mb-14">
+          <span className="inline-block text-xs font-medium text-accent bg-accent/10 px-3 py-1.5 rounded-full mb-4">
+            Our work
+          </span>
+          <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-3">
+            Recent projects
+          </h2>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            A selection of completed and in-progress work across London and the South East.
+          </p>
+        </AnimateOnScroll>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, i) => (
-            <div
+            <AnimateOnScroll
               key={project.title}
-              className={`group relative overflow-hidden ${
-                project.large ? "md:col-span-2 aspect-[21/9]" : "aspect-[4/3]"
-              }`}
+              animation="animate-scale-in"
+              delay={i * 100}
             >
-              <img
-                src={project.image}
-                alt={project.imageAlt}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                <div className="flex items-end justify-between gap-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-primary mb-2">
-                      {project.subtitle}
-                    </p>
-                    <h3 className="font-heading text-2xl md:text-3xl text-foreground">
-                      {project.title}
-                    </h3>
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[10px] uppercase tracking-wider text-muted-foreground border border-foreground/10 px-2.5 py-1"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+              <div className="group bg-secondary rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div className="overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.imageAlt}
+                    className="w-full aspect-[16/10] object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-heading text-lg text-foreground mb-2">
+                    {project.title}
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[11px] font-medium text-primary bg-primary/8 px-2.5 py-1 rounded-md"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                  <div className="hidden sm:block text-right shrink-0">
-                    <p className="text-xs text-muted-foreground">{project.location}</p>
-                    <p className="text-xs text-muted-foreground">{project.duration}</p>
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                      <MapPin size={12} /> {project.location}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock size={12} /> {project.duration}
+                    </span>
                   </div>
                 </div>
               </div>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>
