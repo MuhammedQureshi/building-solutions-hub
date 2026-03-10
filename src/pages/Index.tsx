@@ -8,7 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 
 const Index = () => {
   return (
-    <>
+    <div className="min-h-screen">
       <SiteHeader />
       <main>
         <HeroSection />
@@ -18,7 +18,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 };
 
