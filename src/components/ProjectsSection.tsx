@@ -5,96 +5,98 @@ import refurbImg from "@/assets/refurbishment-progress.jpg";
 
 const projects = [
   {
-    title: "Victorian Terrace — Full Renovation",
-    scope: "Structural alterations, new kitchen, two bathrooms, rewire, replumb",
+    title: "Victorian Terrace",
+    subtitle: "Full Renovation",
+    tags: ["Kitchen", "Bathroom", "Rewire", "Replumb"],
     location: "South London",
     duration: "14 weeks",
     image: kitchenImg,
     imageAlt: "Completed kitchen with exposed brick and copper fixtures",
-    inProgress: false,
+    large: true,
   },
   {
-    title: "Period Property — Strip Out in Progress",
-    scope: "Demolition, structural survey, damp treatment",
-    location: "East London",
-    duration: "Ongoing",
-    image: refurbImg,
-    imageAlt: "Room during strip-out phase showing exposed walls",
-    inProgress: true,
-  },
-  {
-    title: "Contemporary Bathroom Suite",
-    scope: "Wet room, underfloor heating, bespoke vanity, concrete finish walls",
+    title: "Contemporary Suite",
+    subtitle: "Bathroom",
+    tags: ["Wet Room", "Underfloor Heating", "Concrete Finish"],
     location: "Surrey",
     duration: "5 weeks",
     image: bathroomImg,
     imageAlt: "Modern bathroom with freestanding tub and concrete walls",
-    inProgress: false,
+    large: false,
   },
   {
-    title: "New Build — Timber Frame",
-    scope: "Foundations, timber frame erection, first fix plumbing and electrical",
+    title: "Timber Frame",
+    subtitle: "New Build",
+    tags: ["Foundations", "Structure", "First Fix"],
     location: "Kent",
     duration: "Ongoing",
     image: newbuildImg,
     imageAlt: "Timber frame house under construction with scaffolding",
-    inProgress: true,
+    large: false,
+  },
+  {
+    title: "Period Property",
+    subtitle: "Strip & Refurb",
+    tags: ["Demolition", "Structural", "Damp Treatment"],
+    location: "East London",
+    duration: "Ongoing",
+    image: refurbImg,
+    imageAlt: "Room during strip-out phase showing exposed walls",
+    large: true,
   },
 ];
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="py-20 px-6 bg-secondary">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="font-heading text-3xl md:text-4xl font-bold mb-2">
-          Projects
-        </h2>
-        <p className="font-mono text-sm text-muted-foreground mb-16">
-          // Process and result.
+    <section id="projects" className="py-24 md:py-32 px-6 lg:px-10 bg-card">
+      <div className="max-w-7xl mx-auto">
+        <p className="text-xs uppercase tracking-[0.3em] text-primary mb-4">
+          Selected work
         </p>
+        <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-16 md:mb-24">
+          Recent <span className="italic text-gradient">projects.</span>
+        </h2>
 
-        <div className="space-y-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, i) => (
             <div
               key={project.title}
-              className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-start ${
-                i % 2 === 1 ? "md:direction-rtl" : ""
+              className={`group relative overflow-hidden ${
+                project.large ? "md:col-span-2 aspect-[21/9]" : "aspect-[4/3]"
               }`}
             >
-              <div className={`${i % 2 === 1 ? "md:order-2" : ""}`}>
-                <div className={project.inProgress ? "max-w-sm" : "w-full"}>
-                  <img
-                    src={project.image}
-                    alt={project.imageAlt}
-                    className="w-full aspect-[4/3] object-cover"
-                    loading="lazy"
-                  />
-                  {project.inProgress && (
-                    <p className="font-mono text-xs text-muted-foreground mt-2 italic">
-                      Work in progress
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-primary mb-2">
+                      {project.subtitle}
                     </p>
-                  )}
+                    <h3 className="font-heading text-2xl md:text-3xl text-foreground">
+                      {project.title}
+                    </h3>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] uppercase tracking-wider text-muted-foreground border border-foreground/10 px-2.5 py-1"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="hidden sm:block text-right shrink-0">
+                    <p className="text-xs text-muted-foreground">{project.location}</p>
+                    <p className="text-xs text-muted-foreground">{project.duration}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div className={`${i % 2 === 1 ? "md:order-1" : ""} flex flex-col justify-center`}>
-                <h3 className="font-heading text-xl font-semibold mb-4">
-                  {project.title}
-                </h3>
-                <dl className="font-mono text-sm text-muted-foreground space-y-2">
-                  <div className="flex gap-4">
-                    <dt className="text-foreground min-w-[80px]">Scope</dt>
-                    <dd>{project.scope}</dd>
-                  </div>
-                  <div className="flex gap-4">
-                    <dt className="text-foreground min-w-[80px]">Location</dt>
-                    <dd>{project.location}</dd>
-                  </div>
-                  <div className="flex gap-4">
-                    <dt className="text-foreground min-w-[80px]">Duration</dt>
-                    <dd>{project.duration}</dd>
-                  </div>
-                </dl>
               </div>
             </div>
           ))}
