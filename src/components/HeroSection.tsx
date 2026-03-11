@@ -1,16 +1,14 @@
 import { ArrowRight } from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   return (
     <section className="relative pt-32 pb-24 md:pt-44 md:pb-36 px-5 overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 bg-secondary" />
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-      }} />
-      {/* Decorative blobs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-accent/[0.06] rounded-full blur-3xl" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-primary/[0.04] rounded-full blur-3xl" />
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img src={heroBg} alt="" className="w-full h-full object-cover" loading="eager" />
+        <div className="absolute inset-0 bg-background/85 backdrop-blur-[2px]" />
+      </div>
 
       <div className="relative max-w-3xl mx-auto text-center">
         <div className="animate-fade-in">
@@ -37,7 +35,7 @@ const HeroSection = () => {
             </a>
             <a
               href="#projects"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-border text-foreground text-sm font-semibold rounded-2xl hover:border-primary/30 hover:bg-background transition-all duration-300"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-border text-foreground text-sm font-semibold rounded-2xl hover:border-primary/30 hover:bg-background/80 transition-all duration-300"
             >
               View our work
             </a>
