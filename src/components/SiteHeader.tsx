@@ -20,14 +20,14 @@ const SiteHeader = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/95 backdrop-blur-sm shadow-sm"
-          : "bg-background"
+          ? "bg-background/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.06)] py-3"
+          : "bg-background py-5"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
-        <a href="#" className="font-heading text-xl text-foreground">
+      <div className="max-w-6xl mx-auto px-5 flex items-center justify-between">
+        <a href="#" className="font-heading text-2xl text-foreground tracking-tight">
           Groundwork & Gauge
         </a>
 
@@ -43,7 +43,7 @@ const SiteHeader = () => {
           ))}
           <a
             href="tel:02079460958"
-            className="flex items-center gap-2 text-sm font-medium text-primary-foreground bg-primary px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2 text-sm font-semibold text-primary-foreground bg-primary px-6 py-3 rounded-xl shadow-[0_4px_15px_-3px_hsl(var(--primary)/0.3)] hover:shadow-[0_8px_25px_-3px_hsl(var(--primary)/0.4)] hover:-translate-y-0.5 transition-all duration-300"
           >
             <Phone size={14} />
             Call us
@@ -52,7 +52,7 @@ const SiteHeader = () => {
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-foreground p-1"
+          className="md:hidden text-foreground p-2 rounded-xl hover:bg-secondary transition-colors"
           aria-label="Toggle menu"
         >
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -60,13 +60,13 @@ const SiteHeader = () => {
       </div>
 
       {menuOpen && (
-        <nav className="md:hidden bg-background border-t border-border px-5 py-6 space-y-4 animate-fade-in">
+        <nav className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border px-5 py-8 space-y-5 animate-fade-in">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
               onClick={() => setMenuOpen(false)}
-              className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="block text-lg text-muted-foreground hover:text-foreground transition-colors"
             >
               {item.label}
             </a>
@@ -74,7 +74,7 @@ const SiteHeader = () => {
           <a
             href="tel:02079460958"
             onClick={() => setMenuOpen(false)}
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary-foreground bg-primary px-5 py-2.5 rounded-lg"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-foreground bg-primary px-6 py-3 rounded-xl"
           >
             <Phone size={14} />
             Call us
