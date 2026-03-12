@@ -12,23 +12,26 @@ const ContactSection = () => {
   };
 
   const inputClasses =
-    "w-full bg-background border border-border px-5 py-3.5 text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all duration-300";
+    "w-full bg-background border border-border px-5 py-4 text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/50 transition-all duration-300 placeholder:text-muted-foreground/50";
 
   const contactInfo = [
-    { icon: Phone, label: "Phone", value: "020 7946 0958" },
-    { icon: Mail, label: "Email", value: "info@groundworkandgauge.co.uk" },
-    { icon: MapPin, label: "Coverage", value: "London, Surrey, Kent & surrounds" },
-    { icon: Clock, label: "Hours", value: "Mon–Fri 07:00–18:00 · Sat 08:00–13:00" },
+    { icon: Phone, label: "Phone", value: "020 7946 0958", href: "tel:02079460958" },
+    { icon: Mail, label: "Email", value: "info@groundworkandgauge.co.uk", href: "mailto:info@groundworkandgauge.co.uk" },
+    { icon: MapPin, label: "Coverage", value: "London, Surrey, Kent & surrounds", href: undefined },
+    { icon: Clock, label: "Hours", value: "Mon–Fri 07:00–18:00 · Sat 08:00–13:00", href: undefined },
   ];
 
   return (
-    <section id="contact" className="py-20 md:py-32 px-5">
-      <div className="max-w-6xl mx-auto">
+    <section id="contact" className="py-24 md:py-36 px-5 relative overflow-hidden">
+      {/* Background accent */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px]" />
+      
+      <div className="relative max-w-6xl mx-auto">
         <AnimateOnScroll className="text-center mb-16">
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-accent bg-accent/10 px-4 py-2 rounded-full mb-5">
             Get in touch
           </span>
-          <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4">
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl text-foreground mb-5">
             Let's discuss your project
           </h2>
           <p className="text-muted-foreground text-lg max-w-lg mx-auto">
@@ -40,7 +43,7 @@ const ContactSection = () => {
           <AnimateOnScroll className="lg:col-span-3" animation="animate-fade-in-left">
             <form
               onSubmit={handleSubmit}
-              className="bg-secondary rounded-3xl p-7 md:p-10 space-y-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.04)]"
+              className="bg-secondary rounded-3xl p-8 md:p-12 space-y-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.06)] border border-border/50"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
@@ -62,7 +65,7 @@ const ContactSection = () => {
               </div>
               <button
                 type="submit"
-                className="group inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground text-sm font-semibold rounded-2xl shadow-[0_8px_30px_-6px_hsl(var(--primary)/0.4)] hover:shadow-[0_14px_40px_-4px_hsl(var(--primary)/0.5)] hover:-translate-y-0.5 transition-all duration-300"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 bg-accent text-accent-foreground text-sm font-semibold rounded-2xl shadow-[0_8px_30px_-6px_hsl(var(--accent)/0.4)] hover:shadow-[0_14px_40px_-4px_hsl(var(--accent)/0.5)] hover:-translate-y-0.5 transition-all duration-300"
               >
                 <Send size={15} />
                 Send enquiry
@@ -72,18 +75,33 @@ const ContactSection = () => {
           </AnimateOnScroll>
 
           <AnimateOnScroll className="lg:col-span-2" animation="animate-fade-in-right">
-            <div className="space-y-6">
-              {contactInfo.map((item) => (
-                <div key={item.label} className="flex gap-5 items-start">
-                  <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center shrink-0">
-                    <item.icon size={20} className="text-primary" />
+            <div className="space-y-6 lg:pt-4">
+              {contactInfo.map((item) => {
+                const Content = (
+                  <div className="flex gap-5 items-start group">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <item.icon size={22} className="text-primary" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-1">{item.label}</p>
+                      <p className="text-foreground group-hover:text-accent transition-colors duration-200">{item.value}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-1">{item.label}</p>
-                    <p className="text-foreground">{item.value}</p>
-                  </div>
+                );
+                return item.href ? (
+                  <a key={item.label} href={item.href} className="block">{Content}</a>
+                ) : (
+                  <div key={item.label}>{Content}</div>
+                );
+              })}
+
+              {/* Map placeholder */}
+              <div className="mt-8 rounded-2xl overflow-hidden h-48 bg-secondary border border-border flex items-center justify-center">
+                <div className="text-center">
+                  <MapPin size={28} className="text-muted-foreground/30 mx-auto mb-2" />
+                  <p className="text-xs text-muted-foreground/50">Serving London & the South East</p>
                 </div>
-              ))}
+              </div>
             </div>
           </AnimateOnScroll>
         </div>
